@@ -1,0 +1,72 @@
+/* Form Konteyner */
+.form-container {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Grupları */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Giriş Alanları */
+.form-input {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Uyarı Mesajı */
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+/* Buton */
+.form-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+/* Contact List Konteyner */
+.contact-list-container {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Filtre Giriş Alanı */
+.filter-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* İletişim Listesi */
+.contact-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* İletişim Öğeleri */
+.contact-item {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 10px;
+  margin-bottom: 5px;
+}
