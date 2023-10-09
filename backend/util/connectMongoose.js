@@ -5,7 +5,7 @@ async function connectMongoose() {
  
   const _pwd = process.env.MONGO_DB_PWD;
   const _database = "phonebook";
-  const _user= "mehmet";
+  const _user= process.env.MONGO_DB_USER;
   const _cluster = process.env.CLUSTER;
   const _uri = `mongodb+srv://${_user}:${_pwd}@${_cluster}/${_database}?retryWrites=true&w=majority`;
  
