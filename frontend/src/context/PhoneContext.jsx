@@ -7,9 +7,9 @@ const PhoneProvider = ({ children }) => {
   const [phones, setPhones] = useState([]);
   const [selectedPhone, setSelectedPhone] = useState(null);
 
-  // fetch phone
+  // fetch phones
   const fetchPhones = async () => {
-    const response = await axios.get(`http://localhost:4004/phones`);
+    const response = await axios.get(`http://localhost:4004/api/phones`);
     const data = response.data;
     console.log(data);
     setPhones(data);
@@ -21,7 +21,7 @@ const PhoneProvider = ({ children }) => {
   // add phone
   const addPhone = async (form) => {
     try {
-      const response = await axios.post("http://localhost:4004/phones", form);
+      const response = await axios.post("http://localhost:4004/api/phones", form);
       console.log("res", response.data);
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ const PhoneProvider = ({ children }) => {
   // delete phone
   const deletePhone = async (phoneId) => {
     try {
-      await axios.delete(`http://localhost:4004/phones/${phoneId}`);
+      await axios.delete(`http://localhost:4004/api/phones/${phoneId}`);
       fetchPhones();
     } catch (error) {
       console.log(error);
@@ -41,7 +41,7 @@ const PhoneProvider = ({ children }) => {
   // update phone
   const updatePhone = async (phoneData) => {
     try {
-      await axios.put(`http://localhost:4004/phones/${selectedPhone._id}`, phoneData);
+      await axios.patch(`http://localhost:4004/api/phones/${selectedPhone._id}`, phoneData);
       setPhones((prevPhones) => {
         return prevPhones.map((phone)=>{
           if(phone._id === selectedPhone._id) {

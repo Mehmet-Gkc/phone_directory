@@ -3,7 +3,11 @@ import "./App.css";
 import Contact from "./components/Contacts/Contact";
 
 function App() {
-  return <Contact />;
+  return (
+    <>
+      <Contact />
+    </>
+  );
 }
 
 export default App;

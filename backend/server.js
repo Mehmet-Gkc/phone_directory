@@ -3,7 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import { connectMongoose } from "./util/connectMongoose.js";
-import phoneBookRouter from "./routes/generalRouter.js";
+import phoneBookRouter from "./routes/phoneRouter.js"
 import userRouter from "./routes/userRouter.js";
 
 const app = express();

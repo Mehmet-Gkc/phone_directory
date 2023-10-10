@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {getPhoneBooks, getPhoneBook, postPhoneBook, updateBook, deletePhoneBook} from '../controller/generalController.js'
+import {getPhoneBooks, getPhoneBook, postPhoneBook, updateBook, deletePhoneBook} from "../controller/phoneController.js"
 
 const phoneBookRouter = Router();
 

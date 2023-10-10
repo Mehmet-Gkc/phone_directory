@@ -32,10 +32,12 @@ export const postPhoneBook = async (req,res) => {
 
 export const updateBook = async (req,res) => {
     const phoneBookId = req.params.id
-    const newPhoneBook = req.body
+    const updatedPhone = req.body
+    updatedPhone.lastChangedAt = Date.now();
+    updatedPhone.lastChangedUser = req.body.createdUser;
 
     try {
-        const updatePhoneBook = await PhoneBookModel.findByIdAndUpdate(phoneBookId,newPhoneBook, {new:true});
+        const updatePhoneBook = await PhoneBookModel.findByIdAndUpdate(phoneBookId,updatedPhone, {new:true});
         res.status(200).send(`Phone updated: ${updatePhoneBook}`)
     } catch (error) {
         res.send("Phone could not be patched. " + error.message);
