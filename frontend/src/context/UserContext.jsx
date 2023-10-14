@@ -18,7 +18,7 @@ const UserProvider = ({children}) => {
 
     const createUser = async (formData) => {
         try {
-            const response = await axios.post(`/api/users/register`, formData, {
+            const response = await axios.post(`http://localhost:4004/api/users/register`, formData, {
                 withCredentials: true
             });
             console.log("res", response.data)
@@ -29,7 +29,7 @@ const UserProvider = ({children}) => {
 
     const loginUser = async (formData) => {
         try {
-            const response = await axios.post(`/api/users/login`, formData, {
+            const response = await axios.post(`http://localhost:4004/api/users/login`, formData, {
                 withCredentials: true
             });
 
