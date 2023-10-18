@@ -2,10 +2,11 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate();
-  const { loginUser, logoutUser, isLoggedIn, loggedInUser, loginError } =
+  const { loginUser, isLoggedIn, loggedInUser, loginError } =
     useContext(UserContext);
 
   const initialForm = { email: "", password: "" };
@@ -19,15 +20,20 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginUser(formData);
+      loginUser(formData);
     } catch (error) {
       console.log(error);
     }
     setFormData(initialForm);
   };
+  useEffect(() => {
+    {
+      isLoggedIn && navigate("/phones");
+    }
+  }, [isLoggedIn]);
 
   return (
-    <div className="w-full h-screen bg-gray-200 flex items-center justify-center fixed top-0 right-0 left-0 bottom-0">
+    <div className={`flex items-center justify-center`}>
       <div className="w-1/3 bg-white p-3">
         <h1 className="text-3xl uppercase text-indigo-700 font-bold">Login</h1>
         <form onSubmit={handleSubmit}>
@@ -48,8 +54,8 @@ function Login() {
               className="input-style"
               onChange={handleChange}
             />
-              <div className="text-red-600 cursor-pointer mb-4">
-              <Link to="/api/users/register">Click to Register</Link>
+            <div className="text-red-600 cursor-pointer mb-4">
+              <Link to="/users/register">Click to Register</Link>
             </div>
 
             <button type="submit">Sign In</button>

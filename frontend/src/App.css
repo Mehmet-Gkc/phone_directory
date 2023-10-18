@@ -1,3 +1,8 @@
+/* Layout Konteyner */
+.layout-container {
+  height: calc(100vh - 12rem);
+}
+
 /* Form Konteyner */
 .form-container {
   width: 300px;

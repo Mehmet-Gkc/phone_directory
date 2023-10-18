@@ -21,7 +21,16 @@ app.use(
 app.use('/api',userRouter)
 app.use('/api',phoneBookRouter);
 
-
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.log('im error middleware,', err);
+  res.status(err.status || err.statusCode || 500).send({
+    error: {
+      status: err.status || err.statusCode,
+      message: err.message || 'Internal Server Error',
+    },
+  });
+});
 const PORT = process.env.PORT || 4000;
 
 const mongooseConnected = await connectMongoose();

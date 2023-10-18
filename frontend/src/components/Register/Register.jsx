@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import validationSchema from './validation.jsx'
+
 
 const initialForm = {
   name: "",
@@ -8,11 +10,14 @@ const initialForm = {
   password: "",
 };
 
+
 function Register() {
   const navigate = useNavigate();
   const { createUser } = useContext(UserContext);
   const [formData, setFormData] = useState(initialForm);
   const [successMessage, setSuccessMessage] = useState("");
+const [errors, setErrors] = useState({})
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,22 +26,27 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      await validationSchema.validate(formData, { abortEarly: false });
       console.log("Form", formData);
       createUser(formData);
       setSuccessMessage("Registration completed successfully!");
       setFormData(initialForm);
       setTimeout(() => {
         setSuccessMessage("");
-        navigate("/api/users/login");
+        navigate("/users/login");
       }, 4000);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      const validationErrors = {};
+      err.inner.forEach((error) => {
+        validationErrors[error.path] = error.message;
+      });
+      setErrors(validationErrors);
     }
   };
 
   return (
-    <div className="w-full h-screen bg-gray-200 flex items-center justify-center fixed top-0 right-0 left-0 bottom-0">
-      <div className="w-1/3 bg-white p-3">
+    <div className={`flex items-center justify-center `}>
+      <div className="h-fit w-1/3 bg-white p-3">
         <h1 className="text-3xl uppercase text-indigo-700 font-bold">
           Register
         </h1>
@@ -49,6 +59,7 @@ function Register() {
               value={formData.name}
               onChange={handleChange}
               className="input-style"
+              required
             />
 
             <input
@@ -58,6 +69,7 @@ function Register() {
               placeholder="Email"
               className="input-style"
               onChange={handleChange}
+              required
             />
             <input
               value={formData.password}
@@ -66,6 +78,7 @@ function Register() {
               placeholder="Password"
               className="input-style"
               onChange={handleChange}
+              required
             />
 
             {successMessage ? (
@@ -74,7 +87,7 @@ function Register() {
               </div>
             ) : (
               <div className="text-red-600 cursor-pointer mb-4">
-                <Link to="/api/users/login">Click to Login</Link>
+                <Link to="/users/login">Click to Login</Link>
               </div>
             )}
 

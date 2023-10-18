@@ -1,11 +1,9 @@
 import React from "react";
-import styles from "./home.module.css";
-import Navbar from "../PageLayout/Navbar/Navbar.jsx";
+import styles from "./home.module.scss";
 
 function Home() {
   return (
     <>
-      <Navbar />
       <div className={styles.container}>
         <div className={styles.phone}>
           <ul className={styles.content}>

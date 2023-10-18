@@ -4,17 +4,23 @@ import "./App.css";
 import Register from "./components/Register/Register";
 import Home from "./components/Home/Home.jsx";
 import Login from "./components/Login/Login";
-
+import Contacts from "./components/Contacts/Contact";
+import PageLayout from "./components/PageLayout/Layout/PageLayout";
 
 function App() {
   return (
     <>
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/api/users/register" element={<Register />} />
-          <Route path="/api/users/login" element={<Login />} />
-        </Routes>
+        <PageLayout>
+          <div className="layout-container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/users/register" element={<Register />} />
+              <Route path="/users/login" element={<Login />} />
+              <Route path="/phones" element={<Contacts />} />
+            </Routes>
+          </div>
+        </PageLayout>
       </Router>
     </>
   );

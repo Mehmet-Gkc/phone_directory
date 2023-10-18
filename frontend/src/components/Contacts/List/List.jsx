@@ -6,6 +6,7 @@ function List() {
   const [filterText, setFilterText] = useState("");
   const { phones, deletePhone, updatePhone} = useContext(PhoneContext);
 
+
   // Searchbar
   const filtered = phones.filter((item) => {
     return Object.keys(item).some((key) =>

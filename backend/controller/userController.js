@@ -1,8 +1,15 @@
 import userModel from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import { createToken } from "../lib/auth.js";
+import { validationResult } from 'express-validator';
+
 
 export async function createUserController(req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const saltRounds = 12;
     const salt = await bcrypt.genSalt(saltRounds);
@@ -27,7 +34,7 @@ export async function loginUserController(req, res) {
 
       if (isMatching) {
         const token = await createToken({ userId: user._id });
-        console.log(token);
+        console.log("token:",token);
         const sanitiziedUser = {
           _id: user._id,
           name: user.name,
@@ -35,15 +42,15 @@ export async function loginUserController(req, res) {
         };
         return res
           .status(200)
-          .cookie("accessToken", token, {
+          .cookie('accessToken', token, {
             httpOnly: true,
             secure: true,
             maxAge: process.env.SESSION_EXPIRATION_IN_MINUTES * 60 * 1000,
           })
           .send(sanitiziedUser);
       }
-      return res.status(404).json({ msg: "User not found!" });
-    }
+      return res.status(404).json({ msg: "Password incorrect!" });
+    } 
     res.status(200).send("login, successful");
   } catch (error) {
     res.status(500).json(error);
@@ -66,6 +73,9 @@ export const getUserController = async (req, res) => {
 };
 
 export const logoutUserController = async (req, res) => {
-  res.clearCookie("accessToken");
+  console.log("cookies",req.cookies.accessToken)
+  res.clearCookie('accessToken');
+  res.clearCookie('isLoggedIn');
+  console.log("logoutuser")
   res.status(200).send({ msg: "logged out, cookies cleared" });
 };

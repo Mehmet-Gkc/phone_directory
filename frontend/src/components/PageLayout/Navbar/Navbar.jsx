@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BiLogOut } from "react-icons/bi";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
+import styles from "./navbar.module.scss";
 
 function Navbar() {
+  const { logoutUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    logoutUser();
+    navigate("/");
+    console.log("Logout successful");
+  };
+
   return (
-    <div className="h-20 bg-gray-200 flex items-center justify-between px-5">
+    <div className={`flex items-center justify-between px-5 ${styles.navbarContainer}`}>
       <div className="flex">
-        <p >
-          <Link to="/api/users/register">Register</Link>
+        <p>
+          <Link to="/users/register">Register</Link>
         </p>
         <p className="px-3">
-          <Link to="/api/users/login">Login</Link>
+          <Link to="/users/login">Login</Link>
         </p>
       </div>
-      <BiLogOut size={30} className="cursor-pointer" />
+      <BiLogOut size={30} className="cursor-pointer" onClick={handleLogout} />
     </div>
   );
 }
